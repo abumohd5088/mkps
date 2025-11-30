@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Teacher Portal | Milli Karwaan Public School</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #1a237e;
+      --secondary: #ff8f00;
+      --accent: #ffd54f;
+      --light: #f5f7ff;
+      --dark: #121826;
+      --gray: #6c757d;
+      --success: #4caf50;
+      --shadow: 0 4px 20px rgba(0,0,0,0.08);
+      --radius: 12px;
+      --transition: all 0.3s ease;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      color: var(--dark);
+      background-color: #fafbff;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4, h5 {
+      font-family: 'Merriweather', serif;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 12px 28px;
+      background: var(--primary);
+      color: white;
+      border-radius: var(--radius);
+      text-decoration: none;
+      font-weight: 600;
+      transition: var(--transition);
+      border: none;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+    }
+
+    .btn:hover {
+      background: #0d1b5e;
+      transform: translateY(-3px);
+      box-shadow: 0 6px 25px rgba(26, 35, 126, 0.2);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 2px solid var(--primary);
+      color: var(--primary);
+    }
+
+    .btn-outline:hover {
+      background: var(--primary);
+      color: white;
+    }
+
+    .btn-secondary {
+      background: var(--secondary);
+    }
+
+    .btn-secondary:hover {
+      background: #e67e00;
+    }
+
+    .btn-success {
+      background: var(--success);
+    }
+
+    .btn-success:hover {
+      background: #3d8b40;
+    }
+
+    .btn-danger {
+      background: #e53935;
+    }
+
+    .btn-danger:hover {
+      background: #c62828;
+    }
+
+    section {
+      padding: 60px 0;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .section-title h2 {
+      font-size: 2.2rem;
+      color: var(--primary);
+    }
+
+    /* Header */
+    header {
+      background: white;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 0;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-img {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--secondary);
+    }
+
+    .logo-text h1 {
+      font-size: 1.3rem;
+      color: var(--primary);
+      margin: 0;
+    }
+
+    .logo-text span {
+      color: var(--secondary);
+    }
+
+    /* Login Screen */
+    .login-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 80vh;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .login-box {
+      background: white;
+      padding: 40px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      width: 100%;
+      max-width: 450px;
+    }
+
+    .login-box h2 {
+      color: var(--primary);
+      margin-bottom: 25px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+      text-align: left;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 14px;
+      border: 2px solid #e0e0e0;
+      border-radius: var(--radius);
+      font-size: 1rem;
+    }
+
+    .error {
+      color: #e53935;
+      font-size: 0.85rem;
+      margin-top: 8px;
+      display: none;
+    }
+
+    /* Dashboard */
+    .dashboard {
+      display: none;
+    }
+
+    .dashboard-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .dashboard-nav {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 30px;
+    }
+
+    .nav-btn {
+      padding: 10px 20px;
+      background: white;
+      border: 2px solid var(--primary);
+      color: var(--primary);
+      border-radius: 30px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .nav-btn.active, .nav-btn:hover {
+      background: var(--primary);
+      color: white;
+    }
+
+    .content-section {
+      display: none;
+      background: white;
+      padding: 30px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .content-section.active {
+      display: block;
+    }
+
+    .class-selector {
+      max-width: 300px;
+      margin: 0 auto 25px;
+    }
+
+    .class-selector select {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid #e0e0e0;
+      border-radius: var(--radius);
+      font-size: 1rem;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    textarea, input[type="file"] {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid #e0e0e0;
+      border-radius: var(--radius);
+      font-family: 'Poppins', sans-serif;
+    }
+
+    textarea {
+      min-height: 150px;
+      resize: vertical;
+    }
+
+    .file-preview {
+      margin-top: 10px;
+      font-size: 0.9rem;
+      color: var(--gray);
+    }
+
+    .file-preview a {
+      color: var(--primary);
+      text-decoration: underline;
+    }
+
+    .submission-list {
+      margin-top: 30px;
+    }
+
+    .submission-item {
+      padding: 15px;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .submission-item:last-child {
+      border-bottom: none;
+    }
+
+    .submission-meta {
+      font-size: 0.85rem;
+      color: var(--gray);
+    }
+
+    .action-btns {
+      display: flex;
+      gap: 8px;
+    }
+
+    .action-btn {
+      padding: 6px 12px;
+      font-size: 0.8rem;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .footer-notice {
+      text-align: center;
+      margin-top: 30px;
+      color: var(--gray);
+      font-size: 0.9rem;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--dark);
+      color: white;
+      text-align: center;
+      padding: 20px 0;
+      margin-top: 40px;
+    }
+
+    @media (max-width: 768px) {
+      .dashboard-nav {
+        flex-direction: column;
+        align-items: center;
+      }
+      .nav-btn {
+        width: 100%;
+        max-width: 300px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container">
+      <nav class="navbar">
+        <div class="logo">
+          <img src="https://imglink.io/i/5f766005-40e7-4481-a3b4-d672c084b363.jpeg" alt="School Logo" class="logo-img">
+          <div class="logo-text">
+            <h1>Teacher <span>Portal</span></h1>
+          </div>
+        </div>
+        <a href="index.html" class="btn btn-outline">
+          <i class="fas fa-arrow-left"></i> Back to Home
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Login Screen (default) -->
+  <div id="loginScreen" class="login-container">
+    <div class="login-box">
+      <h2>Teacher Login</h2>
+      <p>Enter your credentials to access the portal</p>
+      <form id="loginForm">
+        <div class="form-group">
+          <label for="email">Email (Any)</label>
+          <input type="email" id="email" placeholder="e.g., teacher@school.com" required>
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" placeholder="••••••••" required>
+          <div id="error" class="error">Incorrect password. Please try again.</div>
+        </div>
+        <button type="submit" class="btn btn-secondary">Login</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Dashboard (hidden until login) -->
+  <div id="dashboard" class="dashboard container">
+    <div class="dashboard-header">
+      <h2>Welcome, Teacher!</h2>
+      <p>Manage homework, timetable, syllabus, and more</p>
+    </div>
+
+    <div class="dashboard-nav">
+      <button class="nav-btn active" data-tab="homework">Homework</button>
+      <button class="nav-btn" data-tab="timetable">Timetable</button>
+      <button class="nav-btn" data-tab="syllabus">Syllabus</button>
+      <button class="nav-btn" data-tab="holidays">Holidays</button>
+      <button class="nav-btn" data-tab="news">Announcements</button>
+    </div>
+
+    <!-- Homework Section -->
+    <div id="homework" class="content-section active">
+      <h3>Upload Homework</h3>
+      <div class="class-selector">
+        <select id="hwClass">
+          <option value="">-- Select Class --</option>
+          <option value="1">Class 1</option>
+          <option value="2">Class 2</option>
+          <option value="3">Class 3</option>
+          <option value="4">Class 4</option>
+          <option value="5">Class 5</option>
+          <option value="6">Class 6</option>
+          <option value="7">Class 7</option>
+          <option value="8">Class 8</option>
+        </select>
+      </div>
+      <form id="homeworkForm" class="form-grid">
+        <div class="form-group">
+          <label>Subject</label>
+          <input type="text" id="hwSubject" placeholder="e.g., Mathematics" required>
+        </div>
+        <div class="form-group">
+          <label>Assignment</label>
+          <textarea id="hwTask" placeholder="Describe the homework task..." required></textarea>
+        </div>
+        <div class="form-group">
+          <label>Due Date (Optional)</label>
+          <input type="date" id="hwDue">
+        </div>
+        <button type="submit" class="btn btn-success">Upload Homework</button>
+      </form>
+
+      <div class="submission-list">
+        <h4>Current Homework (Class 5)</h4>
+        <div class="submission-item">
+          <div>
+            <strong>Maths:</strong> Algebra worksheet (5 problems)
+            <div class="submission-meta">Uploaded: 28 Nov 2025</div>
+          </div>
+          <div class="action-btns">
+            <button class="action-btn btn-success"><i class="fas fa-edit"></i></button>
+            <button class="action-btn btn-danger"><i class="fas fa-trash"></i></button>
+          </div>
+        </div>
+        <div class="submission-item">
+          <div>
+            <strong>Science:</strong> Draw & label human digestive system
+            <div class="submission-meta">Uploaded: 27 Nov 2025</div>
+          </div>
+          <div class="action-btns">
+            <button class="action-btn btn-success"><i class="fas fa-edit"></i></button>
+            <button class="action-btn btn-danger"><i class="fas fa-trash"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Timetable Section -->
+    <div id="timetable" class="content-section">
+      <h3>Upload Weekly Timetable</h3>
+      <div class="class-selector">
+        <select id="ttClass">
+          <option value="">-- Select Class --</option>
+          <option value="1">Class 1</option>
+          <option value="2">Class 2</option>
+          <option value="3">Class 3</option>
+          <option value="4">Class 4</option>
+          <option value="5">Class 5</option>
+          <option value="6">Class 6</option>
+          <option value="7">Class 7</option>
+          <option value="8">Class 8</option>
+        </select>
+      </div>
+      <form id="timetableForm" class="form-grid">
+        <div class="form-group">
+          <label>Upload Timetable (PDF/Image)</label>
+          <input type="file" id="ttFile" accept=".pdf,.jpg,.png,.jpeg">
+          <div class="file-preview">
+            Current: <a href="#" target="_blank">timetable_class5.pdf</a>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-success">Update Timetable</button>
+      </form>
+    </div>
+
+    <!-- Syllabus Section -->
+    <div id="syllabus" class="content-section">
+      <h3>Manage Syllabus</h3>
+      <div class="class-selector">
+        <select id="syllabusClass">
+          <option value="">-- Select Class --</option>
+          <option value="1">Class 1</option>
+          <option value="2">Class 2</option>
+          <option value="3">Class 3</option>
+          <option value="4">Class 4</option>
+          <option value="5">Class 5</option>
+          <option value="6">Class 6</option>
+          <option value="7">Class 7</option>
+          <option value="8">Class 8</option>
+        </select>
+      </div>
+      <form id="syllabusForm" class="form-grid">
+        <div class="form-group">
+          <label>Syllabus Text (Editable)</label>
+          <textarea id="syllabusText" placeholder="Paste or write syllabus content here...">NCERT Class 5 Syllabus:
+- English: Unit 1–5 (Prose & Poetry)
+- Maths: Fractions, Decimals, Geometry
+- Science: Living Things, Energy, Environment
+- SST: History, Geography, Civics
+- Hindi: Vyakaran, Rachna, Path</textarea>
+        </div>
+        <div class="form-group">
+          <label>Upload Full Syllabus (PDF)</label>
+          <input type="file" id="syllabusFile" accept=".pdf">
+          <div class="file-preview">
+            Attached: <a href="#" target="_blank">class5_syllabus_2025.pdf</a>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-success">Save Syllabus</button>
+      </form>
+    </div>
+
+    <!-- Holidays Section -->
+    <div id="holidays" class="content-section">
+      <h3>Manage School Holidays</h3>
+      <form id="holidaysForm" class="form-grid">
+        <div class="form-group">
+          <label>Holiday List (One per line)</label>
+          <textarea id="holidayList" placeholder="e.g., 15 Aug: Independence Day">15 Aug: Independence Day
+2 Oct: Gandhi Jayanti
+25 Dec: Christmas
+14–16 Jan: Winter Break
+14 Mar: Holi
+17 Apr: Eid-ul-Fitr (Tentative)</textarea>
+        </div>
+        <button type="submit" class="btn btn-success">Update Holidays</button>
+      </form>
+    </div>
+
+    <!-- Announcements Section -->
+    <div id="news" class="content-section">
+      <h3>Post Announcement</h3>
+      <form id="newsForm" class="form-grid">
+        <div class="form-group">
+          <label>Title</label>
+          <input type="text" id="newsTitle" value="Half-Yearly Exams: 10–15 Dec 2025" required>
+        </div>
+        <div class="form-group">
+          <label>Message</label>
+          <textarea id="newsBody" required>Dear Parents & Students,
+Half-yearly examinations will be held from 10th to 15th December 2025.
+- Admit cards will be distributed on 5th Dec.
+- Syllabus available on school portal.
+- Timetable sent via WhatsApp group.
+Contact office for queries.</textarea>
+        </div>
+        <div class="form-group">
+          <label>Attach File (Optional)</label>
+          <input type="file" id="newsAttachment" accept=".pdf,.jpg,.png">
+        </div>
+        <button type="submit" class="btn btn-success">Publish Announcement</button>
+      </form>
+
+      <div class="submission-list">
+        <h4>Recent Announcements</h4>
+        <div class="submission-item">
+          <div>
+            <strong>PTM Notice:</strong> Parent-Teacher Meeting on 5 Dec, 10 AM
+            <div class="submission-meta">Posted: 25 Nov 2025</div>
+          </div>
+          <div class="action-btns">
+            <button class="action-btn btn-success"><i class="fas fa-edit"></i></button>
+            <button class="action-btn btn-danger"><i class="fas fa-trash"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-notice">
+      <p>🔒 All changes affect <strong>index.html</strong> in real-time (simulated). Actual updates require server integration.</p>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 Milli Karwaan Public School | Teacher Portal</p>
+      <p>Developed by Abu | Password: <code>Talha5088@</code> (for demo only)</p>
+    </div>
+  </footer>
+
+  <script>
+    // ===== LOGIN HANDLER =====
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const password = document.getElementById('password').value;
+      const errorDiv = document.getElementById('error');
+      
+      if (password === 'Talha5088@') {
+        document.getElementById('loginScreen').style.display = 'none';
+        document.getElementById('dashboard').style.display = 'block';
+        errorDiv.style.display = 'none';
+      } else {
+        errorDiv.style.display = 'block';
+      }
+    });
+
+    // ===== TAB NAVIGATION =====
+    document.querySelectorAll('.nav-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        // Remove active from all
+        document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.content-section').forEach(sec => sec.classList.remove('active'));
+        
+        // Add active to clicked
+        this.classList.add('active');
+        const tab = this.getAttribute('data-tab');
+        document.getElementById(tab).classList.add('active');
+      });
+    });
+
+    // ===== FORM SUBMISSIONS (SIMULATED) =====
+    document.getElementById('homeworkForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert('✅ Homework uploaded successfully!\n(Class: ' + document.getElementById('hwClass').value + ')');
+      // In real app: send to server & update index.html data
+    });
+
+    document.getElementById('timetableForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert('✅ Timetable updated successfully!');
+    });
+
+    document.getElementById('syllabusForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert('✅ Syllabus saved!');
+    });
+
+    document.getElementById('holidaysForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert('✅ Holiday list updated!');
+    });
+
+    document.getElementById('newsForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert('✅ Announcement published!');
+    });
+
+    // Optional: Prevent back navigation to login after success
+    window.history.pushState(null, null, window.location.href);
+    window.onpopstate = function() {
+      window.history.go(1);
+    };
+  </script>
+</body>
+</html>
+
