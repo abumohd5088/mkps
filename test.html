@@ -1,62 +1,761 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Simple 3D Game</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    body { margin: 0; overflow: hidden; }
-    button {
-      position: fixed;
-      bottom: 20px;
-      left: 20px;
-      padding: 15px;
-      font-size: 16px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shadow Fighter</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        .game-container {
+            max-width: 1200px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+            width: 100%;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            text-shadow: 0 0 20px rgba(0, 255, 255, 0.7), 0 0 40px rgba(0, 255, 255, 0.3);
+            margin-bottom: 10px;
+            letter-spacing: 3px;
+            background: linear-gradient(to right, #ff00cc, #3333ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.8;
+            margin-bottom: 20px;
+        }
+
+        .game-area {
+            position: relative;
+            width: 100%;
+            height: 500px;
+            background: linear-gradient(to bottom, #0d1b2a, #1b263b);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            margin-bottom: 30px;
+        }
+
+        .ground {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 50px;
+            background: linear-gradient(to top, #3e2723, #5d4037);
+            border-top: 2px solid #795548;
+        }
+
+        .player, .enemy {
+            position: absolute;
+            bottom: 50px;
+            width: 80px;
+            height: 180px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .player {
+            left: 150px;
+        }
+
+        .enemy {
+            right: 150px;
+            transform: scaleX(-1);
+        }
+
+        .shadow {
+            width: 60px;
+            height: 160px;
+            background: radial-gradient(circle at center, #000000 0%, transparent 70%);
+            border-radius: 50% 50% 40% 40%;
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0.7;
+        }
+
+        .fighter {
+            width: 60px;
+            height: 160px;
+            background: linear-gradient(to right, #2c2c2c, #000000);
+            border-radius: 10px 10px 5px 5px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .fighter::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 30px;
+            background: linear-gradient(to bottom, #000000, transparent);
+        }
+
+        .head {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(to bottom, #2c2c2c, #000000);
+            border-radius: 50%;
+            margin: 10px auto 5px;
+            position: relative;
+        }
+
+        .eye {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: #ff0055;
+            border-radius: 50%;
+            top: 15px;
+        }
+
+        .eye.left {
+            left: 10px;
+        }
+
+        .eye.right {
+            right: 10px;
+        }
+
+        .arm {
+            position: absolute;
+            width: 15px;
+            height: 60px;
+            background: linear-gradient(to right, #2c2c2c, #000000);
+            border-radius: 10px;
+            top: 40px;
+        }
+
+        .arm.left {
+            left: -10px;
+            transform: rotate(-20deg);
+        }
+
+        .arm.right {
+            right: -10px;
+            transform: rotate(20deg);
+        }
+
+        .leg {
+            position: absolute;
+            width: 12px;
+            height: 50px;
+            background: linear-gradient(to right, #2c2c2c, #000000);
+            border-radius: 10px;
+            bottom: 0;
+        }
+
+        .leg.left {
+            left: 15px;
+        }
+
+        .leg.right {
+            right: 15px;
+        }
+
+        .health-bar {
+            width: 100%;
+            max-width: 500px;
+            height: 30px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            overflow: hidden;
+            margin-bottom: 30px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+
+        .health-label {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-weight: bold;
+            z-index: 2;
+        }
+
+        .player-label {
+            left: 20px;
+        }
+
+        .enemy-label {
+            right: 20px;
+        }
+
+        .health-fill {
+            height: 100%;
+            border-radius: 15px;
+            transition: width 0.5s ease;
+        }
+
+        .player-health {
+            background: linear-gradient(to right, #4caf50, #8bc34a);
+        }
+
+        .enemy-health {
+            background: linear-gradient(to left, #f44336, #ff9800);
+        }
+
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .control-btn {
+            padding: 12px 25px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(135deg, #2c3e50, #4a6491);
+            color: white;
+        }
+
+        .control-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+            background: linear-gradient(135deg, #34495e, #5d7bc1);
+        }
+
+        .control-btn:active {
+            transform: translateY(1px);
+        }
+
+        .attack-btn {
+            background: linear-gradient(135deg, #e74c3c, #e67e22);
+        }
+
+        .attack-btn:hover {
+            background: linear-gradient(135deg, #c0392b, #d35400);
+        }
+
+        .special-btn {
+            background: linear-gradient(135deg, #9b59b6, #3498db);
+        }
+
+        .special-btn:hover {
+            background: linear-gradient(135deg, #8e44ad, #2980b9);
+        }
+
+        .instructions {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            max-width: 800px;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .instructions h2 {
+            margin-bottom: 15px;
+            color: #4fc3f7;
+        }
+
+        .instructions p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+
+        .key {
+            display: inline-block;
+            padding: 5px 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            margin: 0 5px;
+            font-weight: bold;
+        }
+
+        .hit-effect {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 0, 0, 0.7) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .game-over {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 20;
+            display: none;
+        }
+
+        .game-over h2 {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            text-shadow: 0 0 20px rgba(255, 0, 0, 0.8);
+        }
+
+        .restart-btn {
+            padding: 15px 40px;
+            font-size: 1.5rem;
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .restart-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(231, 76, 60, 0.5);
+        }
+
+        .counter {
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 15px 0;
+            color: #ffcc00;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.8; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .pulse {
+            animation: pulse 0.5s ease-in-out;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-10px); }
+            40%, 80% { transform: translateX(10px); }
+        }
+
+        .shake {
+            animation: shake 0.5s ease-in-out;
+        }
+
+        .damage-text {
+            position: absolute;
+            font-weight: bold;
+            color: #ff0055;
+            text-shadow: 0 0 5px rgba(255, 0, 0, 0.8);
+            z-index: 15;
+            pointer-events: none;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .game-area {
+                height: 400px;
+            }
+            
+            .player, .enemy {
+                width: 60px;
+                height: 140px;
+            }
+            
+            .fighter {
+                width: 45px;
+                height: 140px;
+            }
+            
+            .head {
+                width: 30px;
+                height: 30px;
+            }
+            
+            .controls {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
 </head>
 <body>
+    <div class="game-container">
+        <header>
+            <h1>SHADOW FIGHTER</h1>
+            <p class="subtitle">Battle of the Shadows - Control your warrior and defeat your opponent!</p>
+        </header>
+        
+        <div class="health-bar">
+            <div class="health-label player-label">PLAYER</div>
+            <div class="health-label enemy-label">ENEMY</div>
+            <div class="health-fill player-health" id="player-health" style="width: 100%"></div>
+            <div class="health-fill enemy-health" id="enemy-health" style="width: 100%"></div>
+        </div>
+        
+        <div class="game-area">
+            <div class="ground"></div>
+            
+            <div class="player">
+                <div class="shadow"></div>
+                <div class="fighter">
+                    <div class="head">
+                        <div class="eye left"></div>
+                        <div class="eye right"></div>
+                    </div>
+                    <div class="arm left"></div>
+                    <div class="arm right"></div>
+                    <div class="leg left"></div>
+                    <div class="leg right"></div>
+                </div>
+            </div>
+            
+            <div class="enemy">
+                <div class="shadow"></div>
+                <div class="fighter">
+                    <div class="head">
+                        <div class="eye left"></div>
+                        <div class="eye right"></div>
+                    </div>
+                    <div class="arm left"></div>
+                    <div class="arm right"></div>
+                    <div class="leg left"></div>
+                    <div class="leg right"></div>
+                </div>
+            </div>
+            
+            <div class="game-over" id="game-over">
+                <h2 id="winner-text">VICTORY!</h2>
+                <button class="restart-btn" id="restart-btn">PLAY AGAIN</button>
+            </div>
+        </div>
+        
+        <div class="controls">
+            <button class="control-btn attack-btn" id="punch-btn">PUNCH (A)</button>
+            <button class="control-btn attack-btn" id="kick-btn">KICK (S)</button>
+            <button class="control-btn special-btn" id="special-btn">SHADOW STRIKE (D)</button>
+            <button class="control-btn" id="block-btn">BLOCK (F)</button>
+        </div>
+        
+        <div class="instructions">
+            <h2>HOW TO PLAY</h2>
+            <p>Control your shadow warrior using the buttons or keyboard keys:</p>
+            <p><span class="key">A</span> or <span class="key">PUNCH</span> button: Quick attack (10 damage)</p>
+            <p><span class="key">S</span> or <span class="key">KICK</span> button: Strong attack (20 damage)</p>
+            <p><span class="key">D</span> or <span class="key">SHADOW STRIKE</span> button: Special attack (30 damage)</p>
+            <p><span class="key">F</span> or <span class="key">BLOCK</span> button: Block enemy attacks (50% damage reduction)</p>
+            <p>Reduce your opponent's health to zero to win!</p>
+        </div>
+    </div>
 
-<button id="move">MOVE</button>
+    <script>
+        // Game state
+        const gameState = {
+            playerHealth: 100,
+            enemyHealth: 100,
+            playerBlocked: false,
+            enemyAttacking: false,
+            gameActive: true,
+            playerElement: document.querySelector('.player'),
+            enemyElement: document.querySelector('.enemy'),
+            playerHealthBar: document.getElementById('player-health'),
+            enemyHealthBar: document.getElementById('enemy-health'),
+            gameOverScreen: document.getElementById('game-over'),
+            winnerText: document.getElementById('winner-text')
+        };
 
-<script src="https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.min.js"></script>
+        // Initialize game
+        function initGame() {
+            gameState.playerHealth = 100;
+            gameState.enemyHealth = 100;
+            gameState.playerBlocked = false;
+            gameState.enemyAttacking = false;
+            gameState.gameActive = true;
+            
+            gameState.playerHealthBar.style.width = '100%';
+            gameState.enemyHealthBar.style.width = '100%';
+            gameState.gameOverScreen.style.display = 'none';
+            
+            // Reset animations
+            gameState.playerElement.classList.remove('shake');
+            gameState.enemyElement.classList.remove('shake');
+        }
 
-<script>
-  // Scene
-  const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
-  const renderer = new THREE.WebGLRenderer();
-  renderer.setSize(window.innerWidth, window.innerHeight);
-  document.body.appendChild(renderer.domElement);
+        // Update health bars
+        function updateHealthBars() {
+            const playerHealthPercent = Math.max(0, gameState.playerHealth);
+            const enemyHealthPercent = Math.max(0, gameState.enemyHealth);
+            
+            gameState.playerHealthBar.style.width = `${playerHealthPercent}%`;
+            gameState.enemyHealthBar.style.width = `${enemyHealthPercent}%`;
+            
+            // Add visual effect when health is low
+            if (playerHealthPercent < 30) {
+                gameState.playerHealthBar.style.background = 'linear-gradient(to right, #f44336, #ff9800)';
+            } else {
+                gameState.playerHealthBar.style.background = 'linear-gradient(to right, #4caf50, #8bc34a)';
+            }
+            
+            if (enemyHealthPercent < 30) {
+                gameState.enemyHealthBar.style.background = 'linear-gradient(to left, #f44336, #ff9800)';
+            } else {
+                gameState.enemyHealthBar.style.background = 'linear-gradient(to left, #f44336, #ff9800)';
+            }
+        }
 
-  // Player
-  const playerGeo = new THREE.BoxGeometry();
-  const playerMat = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-  const player = new THREE.Mesh(playerGeo, playerMat);
-  scene.add(player);
+        // Show damage text
+        function showDamage(damage, x, y) {
+            const damageText = document.createElement('div');
+            damageText.className = 'damage-text';
+            damageText.textContent = `-${damage}`;
+            damageText.style.left = `${x}px`;
+            damageText.style.top = `${y}px`;
+            
+            document.querySelector('.game-area').appendChild(damageText);
+            
+            // Animate and remove
+            setTimeout(() => {
+                damageText.style.transition = 'all 1s ease-out';
+                damageText.style.opacity = '0';
+                damageText.style.transform = 'translateY(-20px)';
+                
+                setTimeout(() => {
+                    damageText.remove();
+                }, 1000);
+            }, 50);
+        }
 
-  // Ground
-  const groundGeo = new THREE.PlaneGeometry(50, 50);
-  const groundMat = new THREE.MeshBasicMaterial({ color: 0x555555 });
-  const ground = new THREE.Mesh(groundGeo, groundMat);
-  ground.rotation.x = -Math.PI / 2;
-  scene.add(ground);
+        // Create hit effect
+        function createHitEffect(x, y) {
+            const hitEffect = document.createElement('div');
+            hitEffect.className = 'hit-effect';
+            hitEffect.style.left = `${x - 50}px`;
+            hitEffect.style.top = `${y - 50}px`;
+            
+            document.querySelector('.game-area').appendChild(hitEffect);
+            
+            // Remove after animation
+            setTimeout(() => {
+                hitEffect.remove();
+            }, 500);
+        }
 
-  camera.position.z = 5;
-  camera.position.y = 3;
-  camera.lookAt(player.position);
+        // Player attack
+        function playerAttack(damage, attackType) {
+            if (!gameState.gameActive) return;
+            
+            // Reset player block
+            gameState.playerBlocked = false;
+            
+            // Shake enemy
+            gameState.enemyElement.classList.add('shake');
+            setTimeout(() => {
+                gameState.enemyElement.classList.remove('shake');
+            }, 500);
+            
+            // Calculate damage
+            let actualDamage = damage;
+            
+            // Check if enemy is blocking
+            if (gameState.enemyAttacking) {
+                actualDamage = Math.floor(damage * 0.3); // 70% reduction if enemy is "blocking"
+            }
+            
+            // Update enemy health
+            gameState.enemyHealth -= actualDamage;
+            if (gameState.enemyHealth < 0) gameState.enemyHealth = 0;
+            
+            // Get position for effects
+            const rect = gameState.enemyElement.getBoundingClientRect();
+            const gameRect = document.querySelector('.game-area').getBoundingClientRect();
+            const x = rect.left - gameRect.left + rect.width/2;
+            const y = rect.top - gameRect.top + rect.height/2;
+            
+            // Show effects
+            showDamage(actualDamage, x, y - 20);
+            createHitEffect(x, y);
+            
+            // Update health bars
+            updateHealthBars();
+            
+            // Check for win
+            if (gameState.enemyHealth <= 0) {
+                endGame(true);
+                return;
+            }
+            
+            // Enemy counter-attack after delay
+            setTimeout(enemyAttack, 1000);
+        }
 
-  // Button control
-  document.getElementById("move").onclick = () => {
-    player.position.z -= 0.3;
-  };
+        // Enemy attack
+        function enemyAttack() {
+            if (!gameState.gameActive) return;
+            
+            // Shake player
+            gameState.playerElement.classList.add('shake');
+            setTimeout(() => {
+                gameState.playerElement.classList.remove('shake');
+            }, 500);
+            
+            // Random attack type
+            const attacks = [
+                { damage: 10, name: 'punch' },
+                { damage: 20, name: 'kick' },
+                { damage: 30, name: 'shadow strike' }
+            ];
+            
+            const randomAttack = attacks[Math.floor(Math.random() * attacks.length)];
+            let actualDamage = randomAttack.damage;
+            
+            // Check if player is blocking
+            if (gameState.playerBlocked) {
+                actualDamage = Math.floor(randomAttack.damage * 0.5); // 50% reduction
+                gameState.playerBlocked = false; // Reset block after use
+            }
+            
+            // Update player health
+            gameState.playerHealth -= actualDamage;
+            if (gameState.playerHealth < 0) gameState.playerHealth = 0;
+            
+            // Get position for effects
+            const rect = gameState.playerElement.getBoundingClientRect();
+            const gameRect = document.querySelector('.game-area').getBoundingClientRect();
+            const x = rect.left - gameRect.left + rect.width/2;
+            const y = rect.top - gameRect.top + rect.height/2;
+            
+            // Show effects
+            showDamage(actualDamage, x, y - 20);
+            createHitEffect(x, y);
+            
+            // Update health bars
+            updateHealthBars();
+            
+            // Check for loss
+            if (gameState.playerHealth <= 0) {
+                endGame(false);
+            }
+        }
 
-  function animate() {
-    requestAnimationFrame(animate);
-    renderer.render(scene, camera);
-  }
+        // End game
+        function endGame(playerWon) {
+            gameState.gameActive = false;
+            
+            if (playerWon) {
+                gameState.winnerText.textContent = 'VICTORY!';
+                gameState.winnerText.style.color = '#4caf50';
+            } else {
+                gameState.winnerText.textContent = 'DEFEAT!';
+                gameState.winnerText.style.color = '#f44336';
+            }
+            
+            gameState.gameOverScreen.style.display = 'flex';
+        }
 
-  animate();
-</script>
-
+        // Event listeners for buttons
+        document.getElementById('punch-btn').addEventListener('click', () => {
+            if (gameState.gameActive) playerAttack(10, 'punch');
+        });
+        
+        document.getElementById('kick-btn').addEventListener('click', () => {
+            if (gameState.gameActive) playerAttack(20, 'kick');
+        });
+        
+        document.getElementById('special-btn').addEventListener('click', () => {
+            if (gameState.gameActive) playerAttack(30, 'special');
+        });
+        
+        document.getElementById('block-btn').addEventListener('click', () => {
+            if (gameState.gameActive) {
+                gameState.playerBlocked = true;
+                gameState.playerElement.classList.add('pulse');
+                setTimeout(() => {
+                    gameState.playerElement.classList.remove('pulse');
+                }, 500);
+            }
+        });
+        
+        // Keyboard controls
+        document.addEventListener('keydown', (e) => {
+            if (!gameState.gameActive) return;
+            
+            switch(e.key.toLowerCase()) {
+                case 'a':
+                    playerAttack(10, 'punch');
+                    break;
+                case 's':
+                    playerAttack(20, 'kick');
+                    break;
+                case 'd':
+                    playerAttack(30, 'special');
+                    break;
+                case 'f':
+                    gameState.playerBlocked = true;
+                    gameState.playerElement.classList.add('pulse');
+                    setTimeout(() => {
+                        gameState.playerElement.classList.remove('pulse');
+                    }, 500);
+                    break;
+            }
+        });
+        
+        // Restart button
+        document.getElementById('restart-btn').addEventListener('click', initGame);
+        
+        // Initialize game
+        initGame();
+        
+        // Add some initial animation
+        setTimeout(() => {
+            document.querySelector('.player .fighter').classList.add('pulse');
+            document.querySelector('.enemy .fighter').classList.add('pulse');
+            setTimeout(() => {
+                document.querySelector('.player .fighter').classList.remove('pulse');
+                document.querySelector('.enemy .fighter').classList.remove('pulse');
+            }, 500);
+        }, 1000);
+    </script>
 </body>
 </html>
