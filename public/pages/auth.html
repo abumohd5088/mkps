@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login/Register</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body class="auth-page">
+  <main class="auth-container">
+    <section class="auth-card">
+      <h1>Welcome Back</h1>
+      <p>Select role and login</p>
+      <form id="loginForm">
+        <select id="loginRole" required>
+          <option value="student">Student</option>
+          <option value="teacher">Teacher</option>
+          <option value="admin">Admin</option>
+        </select>
+        <input id="loginEmail" type="email" placeholder="Email" required />
+        <input id="loginPassword" type="password" placeholder="Password" required />
+        <button class="btn" type="submit">Login</button>
+      </form>
+
+      <h2>Create Account (Student/Teacher)</h2>
+      <form id="signupForm">
+        <input id="signupName" type="text" placeholder="Full Name" required />
+        <input id="signupEmail" type="email" placeholder="Email" required />
+        <input id="signupPassword" type="password" placeholder="Password" required />
+        <select id="signupRole" required>
+          <option value="student">Student</option>
+          <option value="teacher">Teacher</option>
+        </select>
+        <input id="signupClass" type="text" placeholder="Class (for students)">
+        <input id="signupSubjects" type="text" placeholder="Subjects comma-separated (for teachers)">
+        <button class="btn" type="submit">Signup</button>
+      </form>
+
+      <h2>Reset Password</h2>
+      <form id="resetForm">
+        <input id="resetEmail" type="email" placeholder="Registered email" required />
+        <input id="resetPassword" type="password" placeholder="New Password" required />
+        <button class="ghost-btn" type="submit">Reset Password</button>
+      </form>
+
+      <p id="authMsg"></p>
+      <a href="/">← Back to Home</a>
+    </section>
+  </main>
+  <script src="/js/auth.js"></script>
+</body>
+</html>
