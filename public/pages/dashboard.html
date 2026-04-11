@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <header class="navbar">
+    <div class="brand">EduSphere Dashboard</div>
+    <nav>
+      <input type="text" id="searchInput" placeholder="Search students..." />
+      <button id="darkModeBtn" class="ghost-btn">🌙</button>
+      <button id="logoutBtn" class="btn">Logout</button>
+    </nav>
+  </header>
+
+  <main class="dashboard-wrap">
+    <aside class="sidebar">
+      <h3 id="userLabel"></h3>
+      <button class="tab-btn" data-tab="overview">Overview</button>
+      <button class="tab-btn" data-tab="marks">Marks</button>
+      <button class="tab-btn" data-tab="attendance">Attendance</button>
+      <button class="tab-btn" data-tab="announcements">Announcements</button>
+      <button class="tab-btn" data-tab="assignments">Assignments</button>
+      <button class="tab-btn" data-tab="chat">Chat</button>
+      <button class="tab-btn" data-tab="calendar">Calendar</button>
+      <button class="tab-btn admin-only" data-tab="admin">Admin Tools</button>
+    </aside>
+
+    <section class="content">
+      <article id="overview" class="tab active">
+        <h2>Overview</h2>
+        <div id="analyticsCards" class="cards-grid"></div>
+      </article>
+
+      <article id="marks" class="tab">
+        <h2>Marks & Grades</h2>
+        <form id="marksForm" class="teacher-only grid-form">
+          <input id="markStudentId" placeholder="Student ID" required />
+          <input id="markSubject" placeholder="Subject" required />
+          <input id="markExam" placeholder="Exam" required />
+          <input id="markScore" type="number" placeholder="Score" required />
+          <input id="markTotal" type="number" placeholder="Total" required />
+          <input id="markGrade" placeholder="Grade" required />
+          <button class="btn" type="submit">Save Mark</button>
+        </form>
+        <div id="marksList"></div>
+        <button id="downloadReportBtn" class="ghost-btn student-only">Download Report Card (JSON)</button>
+      </article>
+
+      <article id="attendance" class="tab">
+        <h2>Attendance</h2>
+        <form id="attendanceForm" class="teacher-only grid-form">
+          <input id="attStudentId" placeholder="Student ID" required />
+          <input id="attClass" placeholder="Class" required />
+          <input id="attDate" type="date" required />
+          <select id="attStatus"><option>Present</option><option>Absent</option></select>
+          <button class="btn" type="submit">Mark Attendance</button>
+        </form>
+        <div id="attendanceList"></div>
+      </article>
+
+      <article id="announcements" class="tab">
+        <h2>Notifications & Announcements</h2>
+        <form id="announcementForm" class="teacher-admin-only grid-form">
+          <input id="annTitle" placeholder="Title" required />
+          <input id="annMessage" placeholder="Message" required />
+          <select id="annTarget"><option value="all">All</option><option value="student">Student</option><option value="teacher">Teacher</option></select>
+          <button class="btn" type="submit">Post</button>
+        </form>
+        <div id="announcementList"></div>
+      </article>
+
+      <article id="assignments" class="tab">
+        <h2>File Upload (Assignments)</h2>
+        <form id="assignmentForm" class="teacher-only" enctype="multipart/form-data">
+          <input id="asgTitle" placeholder="Title" required />
+          <input id="asgClass" placeholder="Class" required />
+          <input id="asgSubject" placeholder="Subject" required />
+          <input id="asgFile" type="file" required />
+          <button class="btn" type="submit">Upload</button>
+        </form>
+        <div id="assignmentList"></div>
+      </article>
+
+      <article id="chat" class="tab">
+        <h2>Student-Teacher Chat</h2>
+        <p>Choose user ID and send a message.</p>
+        <form id="chatForm" class="grid-form">
+          <input id="chatToUser" placeholder="User ID" required />
+          <input id="chatText" placeholder="Write message" required />
+          <button class="btn" type="submit">Send</button>
+        </form>
+        <button id="loadChatBtn" class="ghost-btn">Load Conversation</button>
+        <div id="chatBox"></div>
+      </article>
+
+      <article id="calendar" class="tab">
+        <h2>Events Calendar</h2>
+        <form id="eventForm" class="teacher-admin-only grid-form">
+          <input id="eventTitle" placeholder="Event title" required />
+          <input id="eventDesc" placeholder="Description" />
+          <input id="eventDate" type="date" required />
+          <button class="btn" type="submit">Add Event</button>
+        </form>
+        <div id="eventsList"></div>
+      </article>
+
+      <article id="admin" class="tab admin-only">
+        <h2>Admin Controls</h2>
+        <form id="classForm" class="grid-form">
+          <input id="className" placeholder="Class name" required />
+          <input id="classSubjects" placeholder="Subjects comma-separated" required />
+          <button class="btn" type="submit">Create Class</button>
+        </form>
+        <button id="loadUsersBtn" class="ghost-btn">Load Users</button>
+        <div id="usersList"></div>
+      </article>
+    </section>
+  </main>
+
+  <script src="/js/dashboard.js"></script>
+</body>
+</html>
