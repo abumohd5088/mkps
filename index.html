@@ -199,7 +199,8 @@
 
     /* Hero Section */
     .hero {
-      background: linear-gradient(135deg, var(--primary) 0%, #283593 100%);
+      background: linear-gradient(135deg, rgba(26,35,126,0.95) 0%, rgba(40,53,147,0.92) 100%),
+        url('https://placehold.co/1400x800/1a237e/ffffff?text=Milli+Karwaan+Public+School') center/cover no-repeat;
       color: white;
       padding: 100px 0;
       position: relative;
@@ -239,6 +240,39 @@
       display: flex;
       gap: 15px;
       flex-wrap: wrap;
+    }
+
+    .hero-highlights {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+      margin-top: 35px;
+    }
+
+    .hero-highlight {
+      background: rgba(255,255,255,0.15);
+      border-radius: 14px;
+      padding: 16px;
+      backdrop-filter: blur(6px);
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .hero-highlight i {
+      font-size: 1.8rem;
+      color: var(--accent);
+    }
+
+    .hero-highlight h4 {
+      font-size: 1.1rem;
+      margin-bottom: 4px;
+    }
+
+    .hero-highlight p {
+      font-size: 0.9rem;
+      opacity: 0.85;
+      margin: 0;
     }
 
     /* About Section */
@@ -284,6 +318,67 @@
       font-size: 2rem;
       color: var(--primary);
       margin: 10px 0 5px;
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 24px;
+      margin-top: 35px;
+    }
+
+    .info-card {
+      background: white;
+      padding: 24px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      border-top: 4px solid var(--secondary);
+      transition: var(--transition);
+    }
+
+    .info-card:hover {
+      transform: translateY(-6px);
+    }
+
+    .info-card h4 {
+      margin-bottom: 10px;
+      color: var(--primary);
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: #fff4dd;
+      color: #a26400;
+      font-weight: 600;
+      font-size: 0.85rem;
+      margin-bottom: 14px;
+    }
+
+    .schedule-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 18px;
+    }
+
+    .schedule-card {
+      background: white;
+      padding: 20px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .schedule-card h4 {
+      color: var(--primary);
+      margin-bottom: 8px;
+    }
+
+    .schedule-card p {
+      margin: 0;
+      color: var(--gray);
     }
 
     /* Teachers Section */
@@ -404,6 +499,32 @@
       border-radius: 6px;
     }
 
+    .resources-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+      margin-top: 30px;
+    }
+
+    .resource-card {
+      background: white;
+      padding: 22px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      border: 1px solid #eef0ff;
+    }
+
+    .resource-card h4 {
+      color: var(--primary);
+      margin-bottom: 8px;
+    }
+
+    .resource-meta {
+      font-size: 0.85rem;
+      color: var(--gray);
+      margin-bottom: 12px;
+    }
+
     /* Gallery */
     .gallery-grid {
       display: grid;
@@ -422,6 +543,111 @@
       color: #777;
       font-size: 3rem;
       box-shadow: var(--shadow);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .events-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+    }
+
+    .event-card {
+      background: white;
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .event-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .event-card .event-body {
+      padding: 20px;
+    }
+
+    .event-card h4 {
+      color: var(--primary);
+      margin-bottom: 8px;
+    }
+
+    .event-meta {
+      font-size: 0.85rem;
+      color: var(--gray);
+      margin-bottom: 12px;
+    }
+
+    .testimonial-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+    }
+
+    .testimonial-card {
+      background: white;
+      padding: 24px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      position: relative;
+    }
+
+    .testimonial-card::before {
+      content: '“';
+      position: absolute;
+      top: 10px;
+      right: 18px;
+      font-size: 2.8rem;
+      color: #f2e7c2;
+    }
+
+    .testimonial-card h4 {
+      margin-top: 16px;
+      color: var(--primary);
+    }
+
+    .faq-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+    }
+
+    .faq-item {
+      background: white;
+      padding: 20px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .faq-item h4 {
+      color: var(--primary);
+      margin-bottom: 8px;
+    }
+
+    .cta-banner {
+      background: linear-gradient(135deg, var(--secondary), #f1b600);
+      border-radius: var(--radius);
+      padding: 40px;
+      color: #1b1b1b;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .cta-banner h3 {
+      font-size: 2rem;
+      margin-bottom: 10px;
     }
 
     /* Contact */
@@ -624,6 +850,18 @@
     @media (max-width: 768px) {
       .nav-links {
         display: none;
+        position: absolute;
+        top: 75px;
+        right: 5%;
+        background: white;
+        flex-direction: column;
+        width: 220px;
+        padding: 16px;
+        border-radius: 12px;
+        box-shadow: var(--shadow);
+      }
+      .nav-links.open {
+        display: flex;
       }
       .mobile-toggle {
         display: block;
@@ -672,8 +910,11 @@
         <ul class="nav-links">
           <li><a href="#home">Home</a></li>
           <li><a href="#about">About</a></li>
+          <li><a href="#admissions">Admissions</a></li>
+          <li><a href="#facilities">Facilities</a></li>
           <li><a href="#teachers">Teachers</a></li>
           <li><a href="#homework">Homework & Timetable</a></li>
+          <li><a href="#events">Events</a></li>
           <li><a href="#gallery">Gallery</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
@@ -691,8 +932,31 @@
         <h1>Shaping Tomorrow's Leaders Today</h1>
         <p>Milli Karwaan Public School delivers excellence in education with a strong emphasis on moral values, critical thinking, and holistic development for students from Class 1 to 8.</p>
         <div class="hero-btns">
-          <a href="#homework" class="btn">View Homework</a>
+          <a href="#admissions" class="btn">Admissions Open</a>
           <a href="#contact" class="btn btn-outline">Contact Us</a>
+        </div>
+        <div class="hero-highlights">
+          <div class="hero-highlight">
+            <i class="fas fa-award"></i>
+            <div>
+              <h4>CBSE-Aligned</h4>
+              <p>Skill-based learning & values</p>
+            </div>
+          </div>
+          <div class="hero-highlight">
+            <i class="fas fa-bus"></i>
+            <div>
+              <h4>Safe Transport</h4>
+              <p>Route coverage in Balrampur</p>
+            </div>
+          </div>
+          <div class="hero-highlight">
+            <i class="fas fa-users"></i>
+            <div>
+              <h4>Small Batches</h4>
+              <p>Personal attention & mentoring</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -736,6 +1000,96 @@
         </div>
         <div class="about-img">
           <img src="https://placehold.co/600x400/1a237e/white?text=School+Building" alt="School Building" style="width:100%; border-radius:12px; box-shadow:var(--shadow);">
+        </div>
+      </div>
+      <div class="info-grid">
+        <div class="info-card">
+          <span class="pill"><i class="fas fa-shield-alt"></i> Student Safety</span>
+          <h4>Secure Campus</h4>
+          <p>Daily attendance tracking, verified pickups, and CCTV monitoring across key campus areas.</p>
+        </div>
+        <div class="info-card">
+          <span class="pill"><i class="fas fa-chalkboard"></i> Smart Learning</span>
+          <h4>Interactive Classrooms</h4>
+          <p>Digital content, activity-based learning, and assessments focused on concept clarity.</p>
+        </div>
+        <div class="info-card">
+          <span class="pill"><i class="fas fa-hands-helping"></i> Guidance</span>
+          <h4>Mentorship Program</h4>
+          <p>Weekly counseling, parent-teacher updates, and goal setting for every student.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Admissions Section -->
+  <section id="admissions" style="background:#f8f9ff;">
+    <div class="container">
+      <div class="section-title">
+        <h2>Admissions 2025-26</h2>
+        <p>Join a nurturing community that celebrates learning</p>
+      </div>
+      <div class="schedule-grid">
+        <div class="schedule-card">
+          <h4>Step 1: Enquiry</h4>
+          <p>Call or visit our campus to collect the admission form and prospectus.</p>
+        </div>
+        <div class="schedule-card">
+          <h4>Step 2: Interaction</h4>
+          <p>Meet our academic team for a student assessment and parent orientation.</p>
+        </div>
+        <div class="schedule-card">
+          <h4>Step 3: Admission</h4>
+          <p>Submit documents, confirm fee schedule, and receive a welcome kit.</p>
+        </div>
+        <div class="schedule-card">
+          <h4>Documents Needed</h4>
+          <p>Birth certificate, transfer certificate, Aadhaar, and two passport photos.</p>
+        </div>
+      </div>
+      <div class="resources-grid">
+        <div class="resource-card">
+          <h4>Admission Helpline</h4>
+          <div class="resource-meta">Mon–Sat · 9:00 AM – 3:00 PM</div>
+          <p>Speak with our admissions counselor for class availability and scholarship options.</p>
+        </div>
+        <div class="resource-card">
+          <h4>Fee Structure</h4>
+          <div class="resource-meta">Transparent & affordable</div>
+          <p>Detailed fee breakup available at the school office and on request via email.</p>
+        </div>
+        <div class="resource-card">
+          <h4>Scholarships</h4>
+          <div class="resource-meta">Merit & need-based</div>
+          <p>Special concessions for outstanding academics, sports, and sibling admissions.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Facilities Section -->
+  <section id="facilities">
+    <div class="container">
+      <div class="section-title">
+        <h2>Campus Facilities</h2>
+        <p>Spaces designed for creativity, safety, and growth</p>
+      </div>
+      <div class="info-grid">
+        <div class="info-card">
+          <h4><i class="fas fa-flask"></i> Science Lab</h4>
+          <p>Hands-on experiments for physics, chemistry, and biology aligned with NCERT.</p>
+        </div>
+        <div class="info-card">
+          <h4><i class="fas fa-desktop"></i> Computer Lab</h4>
+          <p>Modern desktops, coding basics, and internet safety training for every grade.</p>
+        </div>
+        <div class="info-card">
+          <h4><i class="fas fa-book-open"></i> Library</h4>
+          <p>Age-appropriate books, reading challenges, and quiet study zones.</p>
+        </div>
+        <div class="info-card">
+          <h4><i class="fas fa-futbol"></i> Sports & Yoga</h4>
+          <p>Daily physical education, yoga sessions, and inter-school competitions.</p>
         </div>
       </div>
     </div>
@@ -809,6 +1163,42 @@
     </div>
   </section>
 
+  <!-- Events & News -->
+  <section id="events">
+    <div class="container">
+      <div class="section-title">
+        <h2>Events & Announcements</h2>
+        <p>Stay informed about campus activities and important notices</p>
+      </div>
+      <div class="events-grid">
+        <div class="event-card">
+          <img src="https://placehold.co/600x400/283593/ffffff?text=Annual+Day+Celebration" alt="Annual Day Celebration">
+          <div class="event-body">
+            <h4>Annual Day Celebration</h4>
+            <div class="event-meta">20 December 2025 · Auditorium</div>
+            <p>Performances, awards, and cultural programs by our students.</p>
+          </div>
+        </div>
+        <div class="event-card">
+          <img src="https://placehold.co/600x400/f57c00/ffffff?text=Parent+Teacher+Meet" alt="Parent Teacher Meet">
+          <div class="event-body">
+            <h4>Parent-Teacher Meet</h4>
+            <div class="event-meta">5 December 2025 · 10:00 AM</div>
+            <p>Discuss student progress, goals, and individualized support plans.</p>
+          </div>
+        </div>
+        <div class="event-card">
+          <img src="https://placehold.co/600x400/1a237e/ffffff?text=Science+Exhibition" alt="Science Exhibition">
+          <div class="event-body">
+            <h4>Science & Innovation Expo</h4>
+            <div class="event-meta">12 January 2026 · Lab Wing</div>
+            <p>Showcasing models, experiments, and student-led research projects.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Homework & Timetable -->
   <section id="homework">
     <div class="container">
@@ -844,12 +1234,83 @@
         <p>Moments that define our journey</p>
       </div>
       <div class="gallery-grid">
-        <div class="gallery-item"><i class="fas fa-camera"></i></div>
-        <div class="gallery-item"><i class="fas fa-camera"></i></div>
-        <div class="gallery-item"><i class="fas fa-camera"></i></div>
-        <div class="gallery-item"><i class="fas fa-camera"></i></div>
-        <div class="gallery-item"><i class="fas fa-camera"></i></div>
-        <div class="gallery-item"><i class="fas fa-camera"></i></div>
+        <div class="gallery-item"><img src="https://placehold.co/400x300/ffd54f/1a237e?text=Morning+Assembly" alt="Morning Assembly"></div>
+        <div class="gallery-item"><img src="https://placehold.co/400x300/1a237e/ffffff?text=Classroom+Learning" alt="Classroom Learning"></div>
+        <div class="gallery-item"><img src="https://placehold.co/400x300/4caf50/ffffff?text=Sports+Day" alt="Sports Day"></div>
+        <div class="gallery-item"><img src="https://placehold.co/400x300/ff8f00/ffffff?text=Art+Workshop" alt="Art Workshop"></div>
+        <div class="gallery-item"><img src="https://placehold.co/400x300/3949ab/ffffff?text=Library+Time" alt="Library Time"></div>
+        <div class="gallery-item"><img src="https://placehold.co/400x300/7e57c2/ffffff?text=Science+Lab" alt="Science Lab"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section id="testimonials">
+    <div class="container">
+      <div class="section-title">
+        <h2>What Parents Say</h2>
+        <p>Stories of growth from our school community</p>
+      </div>
+      <div class="testimonial-grid">
+        <div class="testimonial-card">
+          <p>“The teachers are extremely supportive and give personal attention. My child has improved in confidence and communication.”</p>
+          <h4>Shabnam Khan</h4>
+          <p class="resource-meta">Parent of Class 4 student</p>
+        </div>
+        <div class="testimonial-card">
+          <p>“We love the focus on discipline and values. The school keeps us updated with regular feedback.”</p>
+          <h4>Ravi Patel</h4>
+          <p class="resource-meta">Parent of Class 6 student</p>
+        </div>
+        <div class="testimonial-card">
+          <p>“Clean campus, caring staff, and a strong academic routine. The events and activities are well-organized.”</p>
+          <h4>Meher Ali</h4>
+          <p class="resource-meta">Parent of Class 2 student</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" style="background:#f8f9ff;">
+    <div class="container">
+      <div class="section-title">
+        <h2>Frequently Asked Questions</h2>
+        <p>Everything you need to know about our school</p>
+      </div>
+      <div class="faq-grid">
+        <div class="faq-item">
+          <h4>Which classes are available?</h4>
+          <p>We currently offer Class 1 through Class 8 with a structured CBSE-aligned curriculum.</p>
+        </div>
+        <div class="faq-item">
+          <h4>How do you communicate with parents?</h4>
+          <p>We share updates through WhatsApp groups, SMS alerts, and monthly parent meetings.</p>
+        </div>
+        <div class="faq-item">
+          <h4>Is transport available?</h4>
+          <p>Yes, safe transport is available for nearby areas with fixed pickup and drop points.</p>
+        </div>
+        <div class="faq-item">
+          <h4>Do you provide scholarships?</h4>
+          <p>We provide merit-based and need-based scholarships. Please contact the office for details.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section id="cta">
+    <div class="container">
+      <div class="cta-banner">
+        <div>
+          <h3>Ready to enroll your child?</h3>
+          <p>Visit our campus or call our admissions desk to schedule a counseling session.</p>
+        </div>
+        <div>
+          <a href="#contact" class="btn">Book a Visit</a>
+          <a href="#admissions" class="btn btn-outline" style="margin-left:10px;">View Admission Steps</a>
+        </div>
       </div>
     </div>
   </section>
@@ -963,9 +1424,13 @@
           <ul class="footer-links">
             <li><a href="#home"><i class="fas fa-chevron-right"></i> Home</a></li>
             <li><a href="#about"><i class="fas fa-chevron-right"></i> About Us</a></li>
+            <li><a href="#admissions"><i class="fas fa-chevron-right"></i> Admissions</a></li>
+            <li><a href="#facilities"><i class="fas fa-chevron-right"></i> Facilities</a></li>
             <li><a href="#teachers"><i class="fas fa-chevron-right"></i> Faculty</a></li>
             <li><a href="#homework"><i class="fas fa-chevron-right"></i> Homework</a></li>
+            <li><a href="#events"><i class="fas fa-chevron-right"></i> Events</a></li>
             <li><a href="#gallery"><i class="fas fa-chevron-right"></i> Gallery</a></li>
+            <li><a href="#faq"><i class="fas fa-chevron-right"></i> FAQs</a></li>
             <li><a href="#contact"><i class="fas fa-chevron-right"></i> Contact</a></li>
           </ul>
         </div>
@@ -1173,11 +1638,19 @@
       });
     });
 
-    // Mobile menu toggle (simple version)
-    document.querySelector('.mobile-toggle').addEventListener('click', function() {
-      alert('Menu toggle for mobile - full implementation requires additional JS/CSS.');
+    // Mobile menu toggle
+    const mobileToggle = document.querySelector('.mobile-toggle');
+    const navLinks = document.querySelector('.nav-links');
+
+    mobileToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('open');
+    });
+
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+      });
     });
   </script>
 </body>
 </html>
-
